@@ -1,0 +1,94 @@
+# ─── Secrets & Environment ───
+# .env dosyaları HİÇBİR koşulda commit edilmez
+.env
+.env.*
+!.env.example
+!.env.template
+
+# Cloud credentials
+.aws/
+.gcp/
+.azure/
+*.pem
+*.key
+*.p12
+*.pfx
+serviceAccountKey*.json
+gcp-key*.json
+
+# ─── Node / npm ───
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm/
+.yarn/
+
+# ─── Build outputs ───
+dist/
+build/
+out/
+.next/
+.nuxt/
+.vercel/
+.turbo/
+*.tsbuildinfo
+
+# ─── Coverage & test ───
+coverage/
+.nyc_output/
+*.lcov
+
+# ─── Logs ───
+*.log
+logs/
+
+# ─── IDE / editor ───
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.recommended.json
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ─── OS ───
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ─── Security scan outputs ───
+gitleaks-report.json
+semgrep-report.json
+trivy-results.sarif
+checkov.sarif
+zap-baseline-report.html
+npm-audit.json
+
+# ─── Terraform / IaC ───
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+*.tfvars
+!*.tfvars.example
+
+# ─── Database ───
+*.sqlite
+*.sqlite3
+*.db
+*.dump
+
+# ─── Misc ───
+.cache/
+.parcel-cache/
+tmp/
+temp/
+
+# ─── Claude Code ───
+# Settings.json kişisel/local override
+.claude/settings.local.json
+.claude/agent-memory-local/

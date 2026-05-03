@@ -1,0 +1,74 @@
+# Security Policy
+
+## Reporting a Vulnerability
+
+[PROJE_ADI] güvenlik açıklarını ciddiye alır. Bir güvenlik açığı keşfettiyseniz, lütfen aşağıdaki adımları izleyin:
+
+### Nasıl Raporlanır
+
+**E-posta:** security@[domain]
+
+Lütfen public GitHub issue açmayın — bu, açıklığı bilen ama düzeltilmeyi bekleyen kullanıcıları riske atar.
+
+### Raporda Bulunması Gerekenler
+
+- Açıklığın türü ve potansiyel etkisi
+- Tekrarlanma adımları (proof-of-concept varsa)
+- Etkilenen sürüm/component
+- Önerdiğiniz mitigation (varsa)
+
+### Yanıt Süresi
+
+| Adım | Hedef Süre |
+|---|---|
+| İlk yanıt (raporu aldığımızı teyit) | 48 saat |
+| Ön değerlendirme | 5 iş günü |
+| Açıklama planı (timeline) | 14 gün |
+| Patch yayını | Severity'ye göre 7-90 gün |
+
+### Coordinated Disclosure
+
+Bizim politikamız:
+1. Açıklığı doğrularız ve etki analizini yaparız
+2. Düzeltme geliştiririz ve test ederiz
+3. Etkilenen kullanıcıları bilgilendiririz (gerekiyorsa)
+4. Patch yayınlarız
+5. Public disclosure (raportörle koordineli, genellikle patch'ten sonra)
+
+Sorumlu disclosure politikasına uyan araştırmacılara teşekkür eder, **hall of fame**'imize ekleriz (talep ederseniz).
+
+### Bug Bounty
+
+Şu an aktif bir bug bounty programımız yok. İleride eklendiğinde bu sayfayı güncelleyeceğiz.
+
+### Kapsam
+
+**In scope:**
+- [PROJE_ADI] production sistemleri
+- [PROJE_ADI] mobil uygulamalar (varsa)
+- [PROJE_ADI] API'leri
+
+**Out of scope:**
+- 3. parti servisler (AWS, Cloudflare, Sentry vb. — onların bug bounty programlarına raporlayın)
+- Sosyal mühendislik / phishing
+- Fiziksel güvenlik
+- DOS / DDoS
+
+### KVKK / GDPR
+
+Eğer keşfettiğiniz açıklık **kişisel veri ihlali** içeriyorsa, lütfen raporu **derhal** gönderin. KVKK gereği 72 saat içinde Kuruma bildirim yapmamız gerekebilir.
+
+## Güvenlik Kontrolleri
+
+[PROJE_ADI] aşağıdaki güvenlik standartlarına göre geliştirilir:
+
+- OWASP Top 10:2025
+- NIST SSDF (SP 800-218)
+- KVKK (Türkiye)
+
+Detay için: `docs/security/00-foundation.md`
+
+## İletişim
+
+- **Genel güvenlik konuları:** security@[domain]
+- **KVKK / Veri koruma:** kvkk@[domain]

@@ -1,0 +1,100 @@
+{
+  "_comment": "Claude Code permissions for this project. Bu dosyayı versiyon kontrolünde tut, takım arkadaşların aynı disipline tabi olsun.",
+
+  "permissions": {
+    "allow": [
+      "Bash(npm test:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npm run typecheck:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm audit)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git branch:*)",
+      "Bash(git switch:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Read",
+      "Grep",
+      "Glob"
+    ],
+
+    "ask": [
+      "Bash(npm install:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(npm update:*)",
+      "Bash(git push:*)",
+      "Bash(git merge:*)",
+      "Bash(git rebase:*)",
+      "Bash(npx prisma:*)",
+      "Edit",
+      "Write"
+    ],
+
+    "deny": [
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(rm -rf:*)",
+      "Bash(sudo:*)",
+      "Bash(curl:* | sh)",
+      "Bash(curl:* | bash)",
+      "Bash(wget:* | sh)",
+      "Bash(aws s3 rb:*)",
+      "Bash(aws iam:*)",
+      "Bash(aws ec2 terminate-instances:*)",
+      "Bash(aws rds delete-db:*)",
+      "Bash(terraform destroy:*)",
+      "Bash(eval:*)",
+      "Edit(.env*)",
+      "Edit(.git/**)",
+      "Write(.env*)",
+      "Read(.env*)"
+    ]
+  },
+
+  "hooks": {
+    "_comment": "Hook'lar bash script çalıştırır. Aşağıdaki hook'lar opsiyonel — projeye göre uyarla.",
+
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./scripts/security/validate-bash-command.sh",
+            "_comment": "Tehlikeli pattern'leri yakalar: rm -rf /, force push, etc."
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "./scripts/security/check-secret-patterns.sh",
+            "_comment": "API key, AWS secret, password gibi pattern'leri editlenecek dosyada yakalar"
+          }
+        ]
+      }
+    ],
+
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npm run lint -- --quiet 2>&1 | tail -20",
+            "_comment": "Edit sonrası lint koş — ESLint security plugin uyarıları erken yakalansın"
+          }
+        ]
+      }
+    ]
+  },
+
+  "_alternatives": {
+    "_comment": "Daha az kısıtlayıcı bir mod istersen 'ask' altındaki bazı şeyleri 'allow'a alabilirsin. Daha kısıtlayıcı için 'plan' permissionMode kullan.",
+    "permissionMode": "default"
+  }
+}

@@ -1,0 +1,53 @@
+# gitleaks v8 config
+# Detay: https://github.com/gitleaks/gitleaks#configuration
+
+title = "Secure Platform Starter — gitleaks rules"
+
+# Default ruleset'i kullan (gitleaks built-in)
+[extend]
+useDefault = true
+
+# ─── Allowlist (false positive'leri burada tut) ───
+[allowlist]
+description = "Global allowlist"
+paths = [
+  '''(?i)test/.*''',
+  '''(?i)tests/.*''',
+  '''(?i)__tests__/.*''',
+  '''(?i)spec/.*''',
+  '''docs/security/02-phase-2-coding-rules\.md''',  # Örnek kod var
+  '''docs/security/.*\.md''',                        # Tüm doc örneklerini muaf tut
+  '''.*\.example$''',
+  '''.*\.template$''',
+  '''package-lock\.json''',
+  '''yarn\.lock''',
+  '''pnpm-lock\.yaml''',
+]
+
+# Bilinen test/dummy değerleri
+regexes = [
+  '''(?i)(EXAMPLE|TEST|DUMMY|FAKE|SAMPLE|PLACEHOLDER|YOUR_KEY_HERE|REPLACE_ME|XXX+)''',
+  '''AKIAIOSFODNN7EXAMPLE''',  # AWS docs example
+  '''wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY''',  # AWS docs example
+]
+
+stopwords = [
+  "example",
+  "sample",
+  "fake",
+  "dummy",
+]
+
+# ─── Custom rules (projeye özel ek pattern'ler) ───
+
+[[rules]]
+id = "custom-jwt-hardcoded"
+description = "Hardcoded JWT (3-part base64)"
+regex = '''eyJ[A-Za-z0-9_\-]{10,}\.eyJ[A-Za-z0-9_\-]{10,}\.[A-Za-z0-9_\-]{20,}'''
+tags = ["jwt", "secret"]
+
+[[rules]]
+id = "custom-internal-secret-comment"
+description = "TODO/FIXME ile birlikte secret kelimesi"
+regex = '''(?i)(TODO|FIXME|XXX)[^\n]*?(secret|password|api[_-]?key|token)'''
+tags = ["secret", "todo"]
